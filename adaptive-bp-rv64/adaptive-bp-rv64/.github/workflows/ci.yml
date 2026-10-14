@@ -1,0 +1,39 @@
+name: ci
+on: [push, pull_request]
+
+jobs:
+  rtl-and-python:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y verilator g++ make
+          python3 -m pip install -r requirements.txt
+      - name: Lint RTL
+        run: make lint
+      - name: Python unit tests
+        run: make unit
+      - name: Predictor RTL vs SystemVerilog reference model
+        run: make model-check
+      - name: Directed + random + benchmark regression (Verilator)
+        run: python3 python/run_flow.py regress -n 60 --out results
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: bench-results
+          path: results/
+
+  uvm-elaboration:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install slang front end
+        run: python3 -m pip install pyslang
+      - name: Fetch Accellera UVM
+        run: git clone --depth 1 https://github.com/accellera-official/uvm-core.git "$HOME/uvm-core"
+      - name: Elaborate UVM testbenches
+        run: |
+          python3 scripts/slang_check.py bp   --uvm "$HOME/uvm-core/src"
+          python3 scripts/slang_check.py core --uvm "$HOME/uvm-core/src"

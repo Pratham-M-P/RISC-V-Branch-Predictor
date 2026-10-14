@@ -1,0 +1,3 @@
+pytest>=7
+matplotlib>=3.5      # optional: benchmark plots
+pyslang>=7           # optional: open-source elaboration check of the UVM benches

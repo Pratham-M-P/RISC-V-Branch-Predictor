@@ -1,0 +1,14 @@
+build/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.jou
+*.log
+*.wdb
+xsim.dir/
+.Xil/
+*.vcd
+*.fst
+transcript
+modelsim.ini
+work/

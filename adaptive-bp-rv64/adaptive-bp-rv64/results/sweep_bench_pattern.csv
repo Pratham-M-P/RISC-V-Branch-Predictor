@@ -1,0 +1,16 @@
+idx_bits,predictor,accuracy_pct,ipc
+4,bimodal,56.24,0.8515
+4,gshare,74.92,0.9091
+4,tournament,72.87,0.9024
+6,bimodal,56.24,0.8515
+6,gshare,87.35,0.9520
+6,tournament,89.46,0.9597
+8,bimodal,56.24,0.8515
+8,gshare,93.58,0.9750
+8,tournament,93.64,0.9753
+10,bimodal,56.24,0.8515
+10,gshare,93.56,0.9750
+10,tournament,93.64,0.9752
+12,bimodal,56.24,0.8515
+12,gshare,95.63,0.9828
+12,tournament,95.72,0.9832
